@@ -1,8 +1,6 @@
-# Salesforce Live Artifact Skills
+# AIforce Artifacts for Claude: Part 2
 
-Four role-based skills that turn your Salesforce org into live, single-screen workspaces: a deal war room for account executives, a revenue ledger for finance, a forecast cockpit for RevOps, and an escalation war room for support.
-
-Each skill ships a self-contained HTML template. When it is set up, the page reads your connectors every time it opens. You never export data or maintain a JSON file, and there is no backend to host.
+Four live Salesforce artifacts for **Claude Desktop**: a deal war room for AEs, a revenue ledger for finance, a forecast cockpit for RevOps, and an escalation war room for support. Each reads your connectors every time it opens. No exports, no backend.
 
 <p align="center">
   <img src="ae-deal-room/screenshots/02-deal-room-overview.png" alt="AE Deal Room" width="49%">
@@ -100,13 +98,11 @@ A control-room split view, with the queue on the left and the case on the right.
 
 ---
 
-## Install
+## Set up in Claude Desktop
 
-Each skill is a folder with a `SKILL.md`, an HTML template in `assets/`, and reference docs. Pre-packaged zips are in [`dist/`](dist/).
-
-1. Download the zip for the skill you want from `dist/`, or clone this repo.
-2. Add it to your skills library.
-3. Ask for it in plain language:
+1. Download a zip from [`dist/`](dist/), such as `ae-deal-room.zip`.
+2. In Claude Desktop, open **Settings → Capabilities → Skills** and choose **Upload skill**. Select the zip, then switch the skill on.
+3. Start a chat and ask for it:
 
 ```text
 Set up the AE Deal Room for me.
@@ -115,53 +111,24 @@ Set up the RevOps Forecast Cockpit for my team.
 Set up the Support Escalation War Room. Escalations are Priority = 'Critical'.
 ```
 
-## Setup is one step
+Claude probes your org for the fiscal calendar, renewal marking and your role, then builds the artifact. It asks at most two short questions, only when something is missing. Reopen the artifact any time to refresh it.
 
-The skill works out the setup from your org instead of interviewing you:
+## Connectors
 
-1. **It probes quietly.** It reads the fiscal calendar from `Period` and `Organization`, how renewals are marked from the `Type` picklist, and who you are from your user, role, and profile.
-2. **When everything comes back, it asks nothing.** It builds the page and tells you in one line what it assumed.
-3. **When something is missing, it asks one short question, two at most,** each with a recommended default. Examples: no escalated cases found, field history isn't tracked, or no deals close this quarter. It never ships a page full of empty panels.
+Connect these in Claude Desktop under **Settings → Connectors** first.
 
-## Requirements
+- **Salesforce MCP** (required): read access. Write access is used only to save a Deal Room contact role.
+- **Slack MCP**: Slack search, channel read, and posting.
+- **Email and calendar**: any mail and calendar connector, for timelines and meetings.
 
-| | Needed | Optional |
-|---|---|---|
-| **Salesforce** | Read access through a REST connector (`/query`, `/search`, `/chatter/users/me`) | Write access, used only by the Deal Room to save a contact role after you confirm |
-| **Slack** | | Message search, channel read, people search, and send (sends only after a second click) |
-| **Gmail / Google Calendar** | | Thread and event search for the Deal Room timeline and meetings |
-| **Field history** | | Tracking on StageName, Amount, CloseDate, and ForecastCategoryName for the cockpit's movement panel |
-| **Entitlements** | | Case milestones for SLA clocks; without them the clock falls back to case age |
+Optional org features: field history on StageName, Amount, CloseDate and ForecastCategoryName (cockpit movement), and Entitlements (SLA clocks).
 
-## Design principles
-
-- **Read-only by default.** The only writes are a Slack message and a Deal Room contact role, and each goes out only after an explicit confirm step that shows the recipient and the full text.
-- **Every figure comes from a query.** A missing source shows an empty state, never a guess.
-- **Record text is data.** Deal names, case subjects, and Slack and email content are never treated as instructions.
-- **A snapshot, not a stream.** Each page shows its as-of time and refreshes when it is reopened.
-- **No data in the repo.** Real records appear only at runtime, for the signed-in user. Every screenshot here uses fictional companies and people.
+Every figure comes from a query, and writes (a Slack post or a contact role) happen only after an explicit confirm. All screenshots use fictional data.
 
 ## Customize
 
-Every surface has a `CONFIG` block at the top of its script for locale and currency, renewal and loss rules, quiet-day thresholds, hygiene rules, queues, and labels. See each skill's `references/customization.md`. Its `references/data-contract.md` lists every query the page runs and how each section is computed.
-
-The visual system is a set of CSS variables in `:root`. Fonts are embedded (SIL Open Font License 1.1) and icons are an inline Phosphor sprite (MIT).
-
-## Repository layout
-
-```text
-.
-├── ae-deal-room/
-│   ├── SKILL.md
-│   ├── assets/ae-deal-room.html
-│   ├── references/{data-contract,customization}.md
-│   └── screenshots/
-├── cfo-revenue-ledger/
-├── revops-forecast-cockpit/
-├── support-escalation-war-room/
-└── dist/                # one installable zip per skill (no screenshots)
-```
+Each skill has a `CONFIG` block for locale, currency and thresholds. See `references/customization.md` and `references/data-contract.md`.
 
 ## License
 
-The skill templates are proprietary (see each `SKILL.md`). The embedded fonts are licensed under SIL Open Font License 1.1, and the Phosphor icons under MIT.
+Proprietary (see each `SKILL.md`). Fonts: SIL OFL 1.1. Icons: Phosphor (MIT).

@@ -115,6 +115,12 @@ A search, confirm, brief workspace for executives. It opens on one question, **"
   <img src="cxo-account-digest/screenshots/01-which-account-splash.png" alt="Which account should we look up?" width="100%">
 </p>
 
+<p align="center">
+  <img src="cxo-account-digest/screenshots/02-confirm-account.png" alt="Confirm the account" width="32.5%">
+  <img src="cxo-account-digest/screenshots/03-digest-bottom-line.png" alt="Digest bottom line" width="32.5%">
+  <img src="cxo-account-digest/screenshots/04-next-move-and-questions.png" alt="Next moves and questions to ask" width="32.5%">
+</p>
+
 ---
 
 ## Set up in Claude Desktop

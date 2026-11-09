@@ -17,9 +17,9 @@ Five live Salesforce artifacts for **Claude Desktop**: a deal war room for AEs, 
 |---|---|---|
 | [AE Deal Room](#ae-deal-room) | Account executives, sales managers | *Which deal needs a war room, and how do we win it?* |
 | [CFO Revenue Ledger](#cfo-revenue-ledger) | CFO, VP Finance, FP&A | *What's banked, what's at risk, and how far are we from plan?* |
+| [CXO Account Digest](#cxo-account-digest) | CEO, CRO, COO, executive sponsors, account leaders | *Which account should we look up, and what do I need to know before the meeting?* |
 | [RevOps Forecast Cockpit](#revops-forecast-cockpit) | RevOps, sales ops, forecasting leads | *What moved this week, and is the data clean enough to trust?* |
 | [Support Escalation War Room](#support-escalation-war-room) | VP Support, escalation managers, CS leaders | *Which escalation puts the most revenue at risk right now?* |
-| [CXO Account Digest](#cxo-account-digest) | CEO, CRO, COO, executive sponsors, account leaders | *Which account should we look up, and what do I need to know before the meeting?* |
 
 ---
 
@@ -65,6 +65,23 @@ A single sheet a CFO can read in a minute. It uses paper-white pages, ledger gre
   <img src="cfo-revenue-ledger/screenshots/05-slack-forecast-check-in.png" alt="Slack forecast check-in" width="49%">
 </p>
 
+## CXO Account Digest
+
+A search, confirm, brief workspace for executives. It opens on one question, **"Which account should we look up?"**, then briefs you on the account you pick.
+
+- **Search and confirm** finds candidate accounts in Salesforce and shows industry, HQ, owner, last activity, and open pipeline, so duplicate records are easy to tell apart.
+- **Briefing** fills in as data arrives: bottom line, why it matters, what's warming up, what's cooling off, deals in motion, and who's moving.
+- **Conversations** pull in what the team is saying in Slack and email, plus upcoming meetings from your calendar.
+- **Next moves** and questions to ask come from a Claude-written synthesis of the sources above.
+- **Read-only.** It only queries your connectors, and remembers recent accounts per viewer.
+
+<p align="center">
+  <img src="cxo-account-digest/screenshots/01-which-account-splash.png" alt="Which account should we look up?" width="49%">
+  <img src="cxo-account-digest/screenshots/02-confirm-account.png" alt="Confirm the account" width="49%">
+  <img src="cxo-account-digest/screenshots/03-digest-bottom-line.png" alt="Digest bottom line" width="49%">
+  <img src="cxo-account-digest/screenshots/04-next-move-and-questions.png" alt="Next moves and questions to ask" width="49%">
+</p>
+
 ## RevOps Forecast Cockpit
 
 An instrument panel: dense, square, and monochrome, with amber reserved for change. Its signature view is the movement panel, which rebuilds every deal's state at the start of the window from field history.
@@ -101,23 +118,6 @@ A control-room split view, with the queue on the left and the case on the right.
   <img src="support-escalation-war-room/screenshots/05-slack-escalation-update.png" alt="Slack escalation update" width="49%">
 </p>
 
-## CXO Account Digest
-
-A search, confirm, brief workspace for executives. It opens on one question, **"Which account should we look up?"**, then briefs you on the account you pick.
-
-- **Search and confirm** finds candidate accounts in Salesforce and shows industry, HQ, owner, last activity, and open pipeline, so duplicate records are easy to tell apart.
-- **Briefing** fills in as data arrives: bottom line, why it matters, what's warming up, what's cooling off, deals in motion, and who's moving.
-- **Conversations** pull in what the team is saying in Slack and email, plus upcoming meetings from your calendar.
-- **Next moves** and questions to ask come from a Claude-written synthesis of the sources above.
-- **Read-only.** It only queries your connectors, and remembers recent accounts per viewer.
-
-<p align="center">
-  <img src="cxo-account-digest/screenshots/01-which-account-splash.png" alt="Which account should we look up?" width="49%">
-  <img src="cxo-account-digest/screenshots/02-confirm-account.png" alt="Confirm the account" width="49%">
-  <img src="cxo-account-digest/screenshots/03-digest-bottom-line.png" alt="Digest bottom line" width="49%">
-  <img src="cxo-account-digest/screenshots/04-next-move-and-questions.png" alt="Next moves and questions to ask" width="49%">
-</p>
-
 ---
 
 ## Set up in Claude Desktop
@@ -129,9 +129,9 @@ A search, confirm, brief workspace for executives. It opens on one question, **"
 ```text
 Set up the AE Deal Room for me.
 Set up the CFO Revenue Ledger for our org. Renewals are Type = 'Renewal'.
+Set up the CXO Account Digest for me.
 Set up the RevOps Forecast Cockpit for my team.
 Set up the Support Escalation War Room. Escalations are Priority = 'Critical'.
-Set up the CXO Account Digest for me.
 ```
 
 Claude probes your org for the fiscal calendar, renewal marking and your role, then builds the artifact. It asks at most two short questions, only when something is missing. Reopen the artifact any time to refresh it.
